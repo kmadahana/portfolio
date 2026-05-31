@@ -96,6 +96,24 @@ export function FileIcon(props: IconProps) {
   );
 }
 
+/** Hamburger / menu toggle, shown in the mobile header. */
+export function MenuIcon(props: IconProps) {
+  return (
+    <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={2}>
+      <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** Close (X) toggle, shown when the mobile menu is open. */
+export function CloseIcon(props: IconProps) {
+  return (
+    <svg {...base(props)} fill="none" stroke="currentColor" strokeWidth={2}>
+      <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 /** Small arrow used to mark links that open an external site. */
 export function ArrowUpRightIcon(props: IconProps) {
   return (
