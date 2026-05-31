@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/*
+ * Palette — a deep blue base with a sharp, warm red accent.
+ * Edit these CSS variables to re-theme the whole site.
+ */
+:root {
+  /* Backgrounds: near-black navy, deepening the further back it sits. */
+  --bg: #060a18;
+  --bg-elevated: #0c1430;
+  --surface: #111a3a;
+
+  /* Text */
+  --fg: #eaefff;
+  --fg-muted: #97a6ce;
+  --fg-subtle: #66749b;
+
+  /* Borders & dividers (translucent so gradients show through). */
+  --border: rgba(122, 156, 255, 0.14);
+  --border-strong: rgba(122, 156, 255, 0.28);
+
+  /* Brand blue */
+  --blue: #4f7dff;
+  --blue-bright: #7da2ff;
+
+  /* Warm reddish accent — used sparingly and sharply. */
+  --red: #ff5436;
+  --red-bright: #ff7a63;
+
+  --ring: var(--red);
+}
+
+/*
+ * Map the palette into Tailwind's theme so utilities like `text-fg`,
+ * `bg-surface`, `border-border`, and `text-accent` are available.
+ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-blue: var(--blue);
+  --color-blue-bright: var(--blue-bright);
+  --color-accent: var(--red);
+  --color-accent-bright: var(--red-bright);
+
+  /* Fonts wired up from next/font in layout.tsx. */
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/*
+ * Atmosphere: layered radial gradients pin a cool blue glow to the top
+ * and a faint warm ember bottom-right, over the deep navy base.
+ */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(79, 125, 255, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 100% 100%,
+      rgba(255, 84, 54, 0.1),
+      transparent 60%
+    );
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Consistent, visible focus ring for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth in-page anchor scrolling, but only when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Page-load reveal. Any element with `.reveal` fades and rises in.
+ * Sequence multiple elements by setting `--reveal-delay` per item.
+ * Pure CSS, so it works in Server Components with no client JS.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Respect users who prefer reduced motion: show content immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    animation: none;
+  }
+}
